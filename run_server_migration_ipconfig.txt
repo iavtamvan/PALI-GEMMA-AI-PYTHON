@@ -1,0 +1,19 @@
+@echo off
+cd /d %~dp0
+
+echo 🔁 Mengaktifkan virtual environment...
+call venv310\Scripts\activate.bat
+
+echo 🌍 Menyiapkan environment variable...
+set ALLOWED_HOSTS=127.0.0.1 localhost 0.0.0.0 192.168.0.105
+set SECRET_KEY=your_dummy_secret_key_12345
+set DEBUG=True
+
+echo 🧱 Menjalankan migrasi database...
+python manage.py makemigrations
+python manage.py migrate
+
+echo 🚀 Menjalankan Django server di 0.0.0.0:8000 (agar bisa diakses dari Android)...
+python manage.py runserver 0.0.0.0:8000
+
+pause
